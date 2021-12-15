@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <!--计算属性-->
+    <!--    模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。在模板中放入太多的逻辑会让模板过重且难以维护。例如：-->
+    {{ message.split('').reverse().join('') }}
+    <!--    在这个地方，模板不再是简单的声明式逻辑。你必须看一段时间才能意识到，
+    这里是想要显示变量 message 的翻转字符串。当你想要在模板中的多处包含此翻转字符串时，就会更加难以处理。-->
+    <!--    所以，对于任何复杂逻辑，你都应当使用计算属性。-->
+
+    <!--    基础例子-->
+    <p> original message "{{ message }}"</p>
+    <p>computed reversed message:"{{ reverseMessage }}"</p>
+
+    <p>{{ now }}</p>
+    <!--    这里我们声明了一个计算属性 reversedMessage。
+    我们提供的函数将用作 property vm.reversedMessage 的 getter 函数：-->
+
+    <!--    我们可以将同一函数定义为一个方法而不是一个计算属性。
+    两种方式的最终结果确实是完全相同的。
+    然而，不同的是计算属性是基于它们的响应式依赖进行缓存的。
+    只在相关响应式依赖发生改变时它们才会重新求值。
+    这就意味着只要 message 还没有发生改变，
+    多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。-->
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            message: "i'm a girl"
+        },
+        computed: {
+            reverseMessage: function () {
+                //this指向vm实例
+                return this.message.split('').reverse().join('')
+            },
+            <!--    这也同样意味着下面的计算属性将不再更新，因为 Date.now() 不是响应式依赖：-->
+            now: function () {
+                return Date.now()
+            }
+//             相比之下，每当触发重新渲染时，调用方法将总会再次执行函数。
+// 我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，
+// 它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。
+// 如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代。
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{message}}
+</div>
+<div id="app-2">
+    <span v-bind:title="message">
+        鼠标悬停几秒查看信息
+    </span>
+</div>
+
+<div id="app-3">
+    <p>{{msg}}</p>
+    <button v-on:click="reverseMessage">反转消息</button>
+</div>
+
+<div id="app-4">
+    <p>{{msg2}}</p>
+    <input type="text" v-model="msg2">
+</div>
+<!--=================================-->
+<!--组件基础-->
+<div id="app-5">
+    <ol>
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+        >
+        </todo-item>
+    </ol>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            message:'hello Vue'
+        }
+    })
+    var app2 = new Vue({
+        el:"#app-2",
+        data:{
+            message: '页面加载于'+new Date().toLocaleString()
+        }
+    })
+
+    var app3 = new Vue({
+        el:"#app-3",
+        data: {
+            msg:'hello vue.js'
+        },
+        methods:{
+            //反转消息
+            reverseMessage:function () {
+                this.msg = this.msg.split('').reverse().join('')
+            }
+        }
+    })
+    new Vue({
+        el:'#app-4',
+        data: {
+            msg2: ""
+        }
+    })
+
+//    ==================================================================
+    Vue.component('todo-item',{
+        props:['todo'],
+        template:'<li>{{todo.text}}</li>'
+    })
+
+    new Vue({
+        el:'#app-5',
+        data:{
+            groceryList:[
+                {id:0,text:"蔬菜"},
+                {id:1,text:"奶酪"},
+                {id:2,text:"anything"}
+            ]
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插值</title>
+</head>
+<body>
+<div id="app1">
+    <span v-once>这个将不会改变 {{ msg }}</span>
+    <br>
+    <button v-on:click="msg = 2">change</button>
+    <!--    利用v-html使用原生html-->
+    <!--    这个 span 的内容将会被替换成为 property 值 rawHtml，
+    直接作为 HTML——会忽略解析 property 值中的数据绑定。
+    注意，你不能使用 v-html 来复合局部模板，因为 Vue 不是基于字符串的模板引擎。
+    反之，对于用户界面 (UI)，组件更适合作为可重用和可组合的基本单位。-->
+    <p>using mustaches: {{ rawHtml }}</p>
+    <p>using v-html directive:<span v-html="rawHtml"></span></p>
+
+    <!--    Mustache 语法不能作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令：-->
+    <div v-bind:id="dynamicId">dynamicId</div>
+    <!--对于布尔 attribute (它们只要存在就意味着值为 true)，v-bind 工作起来略有不同，在这个例子中：-->
+    <button v-bind:disabled="isButtonDisabled">button按钮</button>
+    <!--    如果 isButtonDisabled 的值是 null、undefined 或 false，则 disabled attribute 甚至不会被包含在渲染出来的 <button> 元素中。-->
+    <!--    使用JavaScript表达式-->
+    <p>{{ number + 1 }}</p>
+    <p>{{ ok ? 'Yes' : 'No' }}</p>
+    <p>{{ message.split('').reverse().join('') }}</p>
+    <div v-bind:id="'list-'+id"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app1",
+        data: {
+            msg: 1,
+            rawHtml: '<span style="color:red">this should be red</span>',
+            dynamicId: 'appaaa',
+            isButtonDisabled: "",
+            number: 1,
+            ok: true,
+            message: "i'm yangjian",
+            id: '动态id'
+        },
+        methods: {}
+    })
+</script>
+</body>
+</html>
