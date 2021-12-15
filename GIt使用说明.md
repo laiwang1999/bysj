@@ -14,3 +14,7 @@ git reset --hard 版本号     //退回到一个版本（利用版本号）
 
 git checkout -- fileName    //可以把暂存区的内容会退到上一次add操作的内容或者上一次commit之后的内容
 ```
+
+
+
+## 生成ssh秘钥
