@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <!--    三元判断-->
+    <!--            v-bind:class="[isActive?'active':'']"-->
+    <div
+            class="test"
+
+            v-bind:class="{active: isActive,green:isGreen}"
+            style="width: 200px;height: 200px;text-align: center;line-height: 200px;">hi vue
+    </div>
+    <div :style="{color:color,fontSize:size,background: isRed ? '#FF0000':''}">
+        hi vue
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            isActive: true,
+            isGreen: true,
+            color: '#FFFFFF',
+            size: '50px',
+            isRed: true
+        }
+    })
+</script>
+<style>
+    .green {
+        color: green;
+    }
+
+    .test {
+        font-size: 30px;
+    }
+
+    .active {
+        background-color: red;
+    }
+</style>
+</body>
+</html>

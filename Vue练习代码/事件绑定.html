@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="counter += 1">数值：{{counter}}</button>
+    <button v-on:dblclick="greet('abc',$event)">greet</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            counter:0,
+            name:'vue'
+        },
+        methods:{
+            greet:function (str,e){
+                console.log(str)
+                console.log(e)
+            }
+        }
+    })
+</script>
+</body>
+</html>
